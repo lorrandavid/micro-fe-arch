@@ -1,0 +1,17 @@
+.main-nav {
+  justify-content: space-between;
+}
+
+.main-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.main-nav a:not(:last-child) {
+  margin-right: 16px;
+}
+
+main {
+  padding: 0 16px;
+}

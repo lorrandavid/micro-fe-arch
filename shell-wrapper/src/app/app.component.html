@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="main-nav">
+    <span>Third Line</span>
+    <span class="example-spacer"></span>
+    <div>
+      <a mat-button [routerLink]="['/auto']">Auto</a>
+      <a mat-button [routerLink]="['/insurance']">Insurance</a>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
