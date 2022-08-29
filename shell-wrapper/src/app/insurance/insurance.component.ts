@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './insurance.component.html'
 })
 export class InsuranceComponent implements OnInit {
-  private readonly MICRO_INSURANCE_URL = 'http://localhost:4002/main.js'
+  private readonly MICRO_INSURANCE_URL = 'http://localhost:4300/main.js'
   // private readonly MICRO_INSURANCE_URL = 'http://localhost:3000/main.js'
 
   constructor() { }

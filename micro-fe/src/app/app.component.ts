@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -9,7 +10,9 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'micro-fe';
 
-  constructor(private router: Router) {
-    // this.router.initialNavigation();
+  constructor(private router: Router, private http$: HttpClient) {
+    this.http$.get('https://pokeapi.co/api/v2/pokemon?limit=151').subscribe((data) => {
+      console.log(data);
+    });
   }
 }
