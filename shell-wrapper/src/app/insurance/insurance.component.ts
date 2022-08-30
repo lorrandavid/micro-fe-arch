@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InsuranceComponent implements OnInit {
   private readonly MICRO_INSURANCE_URL = 'http://localhost:4300/main.js'
-  // private readonly MICRO_INSURANCE_URL = 'http://localhost:3000/main.js'
+
+  public pokemon: any;
 
   constructor() { }
 
@@ -21,5 +22,9 @@ export class InsuranceComponent implements OnInit {
       script.src = this.MICRO_INSURANCE_URL;
       document.body.appendChild(script);
     }
+  }
+
+  public handleSelectPokemon(pokemon: any): void {
+    this.pokemon = pokemon;
   }
 }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,12 +7,20 @@ import { Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'micro-fe';
+export class AppComponent implements OnInit{
+  public pokemons = [];
 
-  constructor(private router: Router, private http$: HttpClient) {
-    this.http$.get('https://pokeapi.co/api/v2/pokemon?limit=151').subscribe((data) => {
-      console.log(data);
+  @Output() selectPokemon = new EventEmitter();
+
+  constructor(private router: Router, private http$: HttpClient) {}
+
+  ngOnInit(): void {
+    this.http$.get('https://pokeapi.co/api/v2/pokemon?limit=151').subscribe((data: any) => {
+      this.pokemons = data.results;
     });
+  }
+
+  public handleClick(pokemon: any) {
+    this.selectPokemon.emit(pokemon);
   }
 }
