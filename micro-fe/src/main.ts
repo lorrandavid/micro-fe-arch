@@ -7,7 +7,8 @@ import { environment } from './environments/environment';
 import 'zone.js';
 
 if (environment.production) {
-  enableProdMode();
+  // Let the host app decide about prod mode
+  // enableProdMode();
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)
