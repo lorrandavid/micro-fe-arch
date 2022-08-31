@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { createCustomElement } from '@angular/elements';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
+import { MatListModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     AppRoutingModule,
     CoreModule,
-    HttpClientModule
+    HttpClientModule,
+    MatListModule
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
