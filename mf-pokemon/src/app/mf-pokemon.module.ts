@@ -12,7 +12,6 @@ import { MfPokemonComponent } from './mf-pokemon.component';
     BrowserModule,
     MfPokemonRoutingModule
   ],
-  providers: [],
-  bootstrap: [MfPokemonComponent]
+  exports: [MfPokemonComponent]
 })
 export class MfPokemonModule { }
