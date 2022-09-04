@@ -4,7 +4,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, Injector, NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { createCustomElement } from '@angular/elements';
 import { HttpClientModule } from '@angular/common/http';
-import { CoreModule } from './core/core.module';
 import { RouterModule } from '@angular/router';
 import { StepPersonalComponent } from './step-personal/step-personal.component';
 import { StepIdentificationComponent } from './step-identification/step-identification.component';
@@ -31,7 +30,6 @@ import { StepIdentificationComponent } from './step-identification/step-identifi
         component: StepIdentificationComponent
       }
     ]),
-    CoreModule,
     HttpClientModule
   ],
   providers: [],

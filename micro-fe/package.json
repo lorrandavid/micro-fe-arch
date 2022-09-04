@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve --single-bundle --port 4300",
     "build": "ng build --prod --single-bundle --output-hashing none",
+    "build:watch": "ng build --watch --prod --single-bundle --output-hashing none",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -20,8 +21,8 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
-    "core-js": "^2.5.4",
-    "document-register-element": "^1.7.2",
+    "core-js": "^2.6.12",
+    "document-register-element": "1.8.1",
     "ngx-build-plus": "^7.8.3",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
