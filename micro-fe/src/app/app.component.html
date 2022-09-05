@@ -1,6 +1,4 @@
-<mat-list>
-  <h3 mat-subheader>Pokemons</h3>
-  <mat-list-item *ngFor="let pokemon of pokemons.slice(0, 10)">
-    <h4 mat-line (click)="handleClick(pokemon)">{{ pokemon?.name | titlecase }}</h4>
-  </mat-list-item>
-</mat-list>
+<div style="margin: 10px; padding: 10px; border: 1px solid green;">
+  <p>Dentro do Mfe novamente!!</p>
+  <router-outlet></router-outlet>
+</div>
