@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { StepPersonalComponent } from './step-personal/step-personal.component';
 import { StepIdentificationComponent } from './step-identification/step-identification.component';
 
+export const MICRO_APP_NAME = 'micro-app-insurance';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,11 +24,11 @@ import { StepIdentificationComponent } from './step-identification/step-identifi
         component: AppComponent
       },
       {
-        path: 'insurance/step-personal',
+        path: 'insurance/step-personal', // Full route - must be the same as the platform route
         component: StepPersonalComponent
       },
       {
-        path: 'insurance/step-identification',
+        path: 'insurance/step-identification', // Full route - must be the same as the platform route
         component: StepIdentificationComponent
       }
     ]),
@@ -36,14 +38,12 @@ import { StepIdentificationComponent } from './step-identification/step-identifi
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {
-  private MICRO_APP_NAME = 'micro-app-insurance';
-
   constructor(private injector: Injector) {}
 
   ngDoBootstrap() {
-    if (!customElements.get(this.MICRO_APP_NAME))  {
+    if (!customElements.get(MICRO_APP_NAME))  {
       const elem = createCustomElement(AppComponent, { injector: this.injector });
-      customElements.define(this.MICRO_APP_NAME, elem);
+      customElements.define(MICRO_APP_NAME, elem);
       console.log('ngDoBootstrap');
     }
   }
