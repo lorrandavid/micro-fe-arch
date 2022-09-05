@@ -11,6 +11,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { NoComponentComponent } from './no-component.component';
 
 export const MICRO_APP_NAME = 'micro-app-insurance';
 
@@ -42,7 +43,8 @@ export function HttpLoaderFactory(http: HttpClient): any {
   declarations: [
     AppComponent,
     StepPersonalComponent,
-    StepIdentificationComponent
+    StepIdentificationComponent,
+    NoComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +52,10 @@ export function HttpLoaderFactory(http: HttpClient): any {
       {
         path: '',
         component: AppComponent
+      },
+      {
+        path: 'auto', // Empty route - must be used when redirecting to platform route directly from mfe
+        component: NoComponentComponent
       },
       {
         path: 'insurance/step-personal', // Full route - must be the same as the platform route

@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,7 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./step-identification.component.css']
 })
 export class StepIdentificationComponent {
-  constructor() {
+  constructor(private loc: Location) {
     console.log('StepIdentificationComponent');
+  }
+
+  public goBack(): void {
+    this.loc.back();
   }
 }
