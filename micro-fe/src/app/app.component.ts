@@ -1,26 +1,33 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
-  public pokemons = [];
+export class AppComponent implements OnChanges {
+  @Input() route?: string; // Route comes from platform to trigger it inside mfe
+  @Input() lang?: 'pt' | 'en';  // Lang comes from platform to trigger it inside mfe
 
-  @Output() selectPokemon = new EventEmitter();
+  constructor(private translate: TranslateService, private router: Router) {
+    this.translate.addLangs(['pt']);
+    this.translate.setDefaultLang('pt');
+    this.translate.use('pt');
 
-  constructor(private router: Router, private http$: HttpClient) {}
-
-  ngOnInit(): void {
-    this.http$.get('https://pokeapi.co/api/v2/pokemon?limit=151').subscribe((data: any) => {
-      this.pokemons = data.results;
-    });
+    console.log('AppComponent');
   }
 
-  public handleClick(pokemon: any) {
-    this.selectPokemon.emit(pokemon);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.route && this.route) {
+      this.router.navigateByUrl(this.route, {
+        state: { fromPlatform: true } // Use state to determine which view triggered router changes
+      });
+    }
+
+    if (changes.lang && this.lang) {
+      this.translate.use(this.lang);
+    }
   }
 }

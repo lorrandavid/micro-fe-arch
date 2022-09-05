@@ -1,6 +1,6 @@
-<h2 class="mat-display-1" style="margin-bottom: 0;">Selected pokemon: {{ pokemon?.name }}</h2>
+<h2 class="mat-display-1" style="margin-bottom: 0;">{{ 'SELECTED-POKEMON' | translate }}: {{ pokemon?.name }}</h2>
 
 <div style="margin: 16px; padding: 16px; border: 1px solid #f00;">
   <h4>Micro front-end</h4>
-  <micro-app-insurance (selectPokemon)="handleSelectPokemon($event.detail)"></micro-app-insurance>
+  <micro-app-insurance appMfeRouting appMfeLanguage></micro-app-insurance>
 </div>

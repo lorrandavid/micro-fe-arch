@@ -3,7 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { InsuranceComponent } from './insurance.component';
 
 const routes: Routes = [
-  { path: '', component: InsuranceComponent }
+  {
+    path: '**',
+    component: InsuranceComponent
+  }
 ];
 
 @NgModule({

@@ -1,37 +1,84 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, Injector, NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { createCustomElement } from '@angular/elements';
-import { HttpClientModule } from '@angular/common/http';
-import { CoreModule } from './core/core.module';
-import { MatListModule } from '@angular/material';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { StepPersonalComponent } from './step-personal/step-personal.component';
+import { StepIdentificationComponent } from './step-identification/step-identification.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+export const MICRO_APP_NAME = 'micro-app-insurance';
+
+class MultiTranslateHttpLoader implements TranslateLoader {
+  constructor(private http: HttpClient, public resources: { prefix: string; suffix: string }[] = [
+    {
+      prefix: '/assets/i18n/',
+      suffix: '.json'
+    }
+  ]) {}
+
+  public getTranslation(lang: string): any {
+    return forkJoin(
+      this.resources
+      .map(config => this.http.get(`http://localhost:4300${config.prefix}${lang}${config.suffix}`))
+    ).pipe(
+      map(response => response.reduce((a, b) => (Object.assign(a, b))))
+    );
+  }
+}
+
+export function HttpLoaderFactory(http: HttpClient): any {
+  return new MultiTranslateHttpLoader(http, [
+    { prefix: '/assets/i18n/', suffix: '.json' }
+  ]);
+}
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StepPersonalComponent,
+    StepIdentificationComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    CoreModule,
+    RouterModule.forRoot([
+      {
+        path: '',
+        component: AppComponent
+      },
+      {
+        path: 'insurance/step-personal', // Full route - must be the same as the platform route
+        component: StepPersonalComponent
+      },
+      {
+        path: 'insurance/step-identification', // Full route - must be the same as the platform route
+        component: StepIdentificationComponent
+      }
+    ]),
     HttpClientModule,
-    MatListModule
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
-  // bootstrap: [AppComponent]
 })
 export class AppModule {
-  private MICRO_APP_NAME = 'micro-app-insurance';
-
   constructor(private injector: Injector) {}
 
   ngDoBootstrap() {
-    if (!customElements.get(this.MICRO_APP_NAME))  {
+    if (!customElements.get(MICRO_APP_NAME))  {
       const elem = createCustomElement(AppComponent, { injector: this.injector });
-      customElements.define(this.MICRO_APP_NAME, elem);
+      customElements.define(MICRO_APP_NAME, elem);
+      console.log('ngDoBootstrap');
     }
   }
 }
