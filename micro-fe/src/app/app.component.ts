@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,11 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnChanges {
   @Input() route?: string; // Route comes from platform to trigger it inside mfe
 
-  constructor(private router: Router) {
+  constructor(translate: TranslateService, private router: Router) {
+    translate.addLangs(['pt']);
+    translate.setDefaultLang('pt');
+    translate.use('pt');
+
     console.log('AppComponent');
   }
 

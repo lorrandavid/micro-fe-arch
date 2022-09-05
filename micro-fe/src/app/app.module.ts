@@ -3,12 +3,39 @@ import { CUSTOM_ELEMENTS_SCHEMA, Injector, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { createCustomElement } from '@angular/elements';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { StepPersonalComponent } from './step-personal/step-personal.component';
 import { StepIdentificationComponent } from './step-identification/step-identification.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export const MICRO_APP_NAME = 'micro-app-insurance';
+
+class MultiTranslateHttpLoader implements TranslateLoader {
+  constructor(private http: HttpClient, public resources: { prefix: string; suffix: string }[] = [
+    {
+      prefix: '/assets/i18n/',
+      suffix: '.json'
+    }
+  ]) {}
+
+  public getTranslation(lang: string): any {
+    return forkJoin(
+      this.resources
+      .map(config => this.http.get(`http://localhost:4300${config.prefix}${lang}${config.suffix}`))
+    ).pipe(
+      map(response => response.reduce((a, b) => (Object.assign(a, b))))
+    );
+  }
+}
+
+export function HttpLoaderFactory(http: HttpClient): any {
+  return new MultiTranslateHttpLoader(http, [
+    { prefix: '/assets/i18n/', suffix: '.json' }
+  ]);
+}
 
 @NgModule({
   declarations: [
@@ -32,7 +59,14 @@ export const MICRO_APP_NAME = 'micro-app-insurance';
         component: StepIdentificationComponent
       }
     ]),
-    HttpClientModule
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
