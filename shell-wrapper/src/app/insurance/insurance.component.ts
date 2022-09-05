@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-insurance',
   templateUrl: './insurance.component.html'
 })
 export class InsuranceComponent implements OnInit {
-  private readonly MICRO_INSURANCE_URL = 'http://localhost:4300/main.js';
+  private readonly MICRO_INSURANCE_URL = `${environment.mfeUrl}/main.js`;
 
   public pokemon: any;
 

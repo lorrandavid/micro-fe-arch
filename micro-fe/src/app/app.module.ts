@@ -10,6 +10,7 @@ import { StepIdentificationComponent } from './step-identification/step-identifi
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 export const MICRO_APP_NAME = 'micro-app-insurance';
 
@@ -24,7 +25,7 @@ class MultiTranslateHttpLoader implements TranslateLoader {
   public getTranslation(lang: string): any {
     return forkJoin(
       this.resources
-      .map(config => this.http.get(`http://localhost:4300${config.prefix}${lang}${config.suffix}`))
+      .map(config => this.http.get(`${environment.mfeUrl}${config.prefix}${lang}${config.suffix}`))
     ).pipe(
       map(response => response.reduce((a, b) => (Object.assign(a, b))))
     );
