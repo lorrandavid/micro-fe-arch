@@ -60,12 +60,11 @@ export class AppComponent implements OnChanges, OnDestroy {
           url: event.urlAfterRedirects,
           replaceUrl: this.isRedirect(event)
         });
-      })
+      });
   }
 
   /**
    * Detect if changes are ocurring from Platform to Mfe
-   * @returns
    */
   private isRouteChangeFromPlatform(): boolean {
     return (
